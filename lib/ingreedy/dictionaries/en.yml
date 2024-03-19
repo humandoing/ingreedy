@@ -5,6 +5,7 @@
     - "c."
     - "c"
   :fluid_ounce:
+    - "floz"
     - "fl. oz."
     - "fl oz"
     - "fluid ounce"
@@ -62,6 +63,8 @@
   :kilogram:
     - "kg"
     - "kg."
+    - "kilo"
+    - "kilos"
     - "kilogram"
     - "kilograms"
   :liter:
@@ -102,6 +105,7 @@
     - "can"
   :to_taste:
     - "to taste"
+    - "tt"
 :numbers:
   a: 1
   an: 1

@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  ingreedy:
+    build: .
+    tty: true # This keeps the container running
+    stdin_open: true # This attaches stdin to the container    
+    command: ["/bin/bash"]
+    volumes:
+      - .:/code

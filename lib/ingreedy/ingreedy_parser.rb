@@ -15,6 +15,7 @@ module Ingreedy
       :container_amount,
       :container_unit,
       :ingredient,
+      :descriptor,
       :original_query,
     )
 
@@ -48,7 +49,14 @@ module Ingreedy
         parslet[:container_unit].to_s,
       ) if parslet[:container_unit]
 
-      result.ingredient = parslet[:ingredient].to_s.lstrip.rstrip # TODO: hack
+      # Extract ingredient and descriptor
+      ingredient, descriptor = parslet[:ingredient].to_s.lstrip.rstrip.split(/,\s*/, 2)
+
+      # Assign the ingredient
+      result.ingredient = ingredient
+
+      # Only set the descriptor if one was found
+      result.descriptor = descriptor if descriptor
 
       result
     end

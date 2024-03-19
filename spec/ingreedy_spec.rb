@@ -89,6 +89,20 @@ describe Ingreedy, "amount parsing preserving original value" do
   end
 end
 
+describe Ingreedy, "correct parsing of descriptors" do
+  {
+    "1 cup flour, all purpose" => "all purpose",
+    "4.5 cups garlic, chopped" => "chopped",
+    "¼ lb carrots, diced fine" => "diced fine",
+    "1,5 lbs celery, chopped" => "chopped",
+  }.each do |query, expected|
+    it "parses the correct descriptor" do
+      expect(Ingreedy.parse(query).descriptor).to eq(expected)
+    end
+  end
+end
+
+
 describe Ingreedy, "english units" do
   context "abbreviated" do
     {
@@ -219,15 +233,19 @@ describe Ingreedy, "nonstandard units" do
   end
 end
 
-describe Ingreedy, "without units" do
+describe Ingreedy, "without units, with descriptor" do
   it "parses correctly" do
     result = Ingreedy.parse "3 eggs, lightly beaten"
 
     expect(result.amount).to eq(3)
     expect(result.unit).to be_nil
-    expect(result.ingredient).to eq("eggs, lightly beaten")
+    expect(result.ingredient).to eq("eggs")
+    expect(result.descriptor).to eq("lightly beaten")
   end
 end
+
+
+
 
 describe Ingreedy, "container as part of quantity" do
   it "parses correctly" do
