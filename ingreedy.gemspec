@@ -10,7 +10,11 @@ Gem::Specification.new do |s|
   s.summary     = "Recipe parser"
   s.description = <<-MSG
     Natural language recipe ingredient parser that supports numeric amount,
-    units, and ingredient
+    units, ingredient and descriptor.
+
+    Note: This version was forked from cookpad (they added Ruby 3 support IIRC),
+    and then modified slightly to be able to parse an optional ingredient
+    descriptor as well.
   MSG
   s.homepage = "http://github.com/iancanderson/ingreedy"
 

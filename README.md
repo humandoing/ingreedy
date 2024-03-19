@@ -52,8 +52,6 @@ print result.amount
   #=> 1 1/2
 ```
 
-[Live demo](http://hangryingreedytest.herokuapp.com/)
-
 # Pieces of Flair
 - [![Gem Version](https://badge.fury.io/rb/ingreedy.svg)](http://badge.fury.io/rb/ingreedy)
 - [![Build Status](https://secure.travis-ci.org/iancanderson/ingreedy.svg?branch=master)](http://travis-ci.org/iancanderson/ingreedy)
@@ -62,7 +60,21 @@ print result.amount
 
 # Development
 
-Run the tests:
+To try to make development easier, I have added a `Dockerfile` and `docker-compose.yml` to 
+make things as boring and simple as possible. If you have Docker installed you should be
+able to simply start developing (and work on the specs) by doing:
+
 ```
-rspec spec
+docker-compose build
+docker-compose run ingreedy bash
+
+# Now you will get a bash prompt inside the docker container
+bundle # to install gems
+bundle exec rspec
+
 ```
+
+I realize that the above could be improved with better Dockerfile or docker-compose.yml or
+changing the way the volumes are handled, or making the container totally transient. This
+was just the easiest way for me to make the changes I needed, and I'm still pretty new to
+working on Gems in general.
