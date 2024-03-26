@@ -8,7 +8,7 @@ module Ingreedy
     end
 
     def []=(locale, attributes)
-      @collection[locale] = Dictionary.new(**attributes)
+      @collection[locale] = Dictionary.new(**attributes, locale: locale)
     end
 
     def current
@@ -38,7 +38,7 @@ module Ingreedy
     end
 
     def fetch_dictionary(locale)
-      @collection[locale] ||= Dictionary.new **load_yaml(locale)
+      @collection[locale] ||= Dictionary.new(**load_yaml(locale), locale: locale)
     rescue Errno::ENOENT
     end
 
