@@ -64,7 +64,7 @@ module Ingreedy
     private
 
     def current_locale
-      Ingreedy.dictionaries.current_locale
+      Ingreedy.dictionaries.current.locale
     end
 
     def word_digits

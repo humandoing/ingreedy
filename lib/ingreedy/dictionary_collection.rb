@@ -8,28 +8,20 @@ module Ingreedy
     end
 
     def []=(locale, attributes)
-      @collection[locale] = Dictionary.new(**attributes)
+      @collection[locale] = Dictionary.new(locale:, **attributes)
     end
 
     def current
-      fetch_dictionary(current_locale)
-    end
-
-    def current_locale
-      find_locale
-    end
-
-    private
-
-    def find_locale
       candidate_locales.each do |locale|
         if dictionary = fetch_dictionary(locale)
-          return locale
+          return dictionary
         end
       end
 
       raise "No dictionary found for locales: #{candidate_locales}"
     end
+
+    private
 
     def candidate_locales
       Array(Ingreedy.locale || i18n_gem_locales || :en)
@@ -46,7 +38,7 @@ module Ingreedy
     end
 
     def fetch_dictionary(locale)
-      @collection[locale] ||= Dictionary.new **load_yaml(locale)
+      @collection[locale] ||= Dictionary.new(locale:, **load_yaml(locale))
     rescue Errno::ENOENT
     end
 

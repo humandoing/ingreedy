@@ -126,7 +126,7 @@ module Ingreedy
     attr_reader :original_query
   
     def current_locale
-      Ingreedy.dictionaries.current_locale
+      Ingreedy.dictionaries.current.locale
     end
 
     def imprecise_amounts
