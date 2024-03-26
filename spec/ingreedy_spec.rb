@@ -448,39 +448,80 @@ describe Ingreedy, "ingredient formatting" do
 end
 
 describe Ingreedy, "continuous language" do
-  before(:all) do
-    Ingreedy.dictionaries[:ja] = {
-      units: { gram: ["g"] },
-      numbers: { "一" => 1 },
-    }
-    Ingreedy.locale = :ja
+  context "Japanese" do
+    before do
+      Ingreedy.dictionaries[:ja] = {
+        units: { gram: ["g"], other: ["個"] },
+        numbers: { "一" => 1 },
+      }
+      Ingreedy.locale = :ja
+    end
+
+    after do
+      Ingreedy.locale = nil
+    end
+
+    it "parses correctly" do
+      result = Ingreedy.parse "200g砂糖"
+
+      expect(result.amount).to eq(200)
+      expect(result.unit).to eq(:gram)
+      expect(result.ingredient).to eq("砂糖")
+    end
+
+    it "parses correctly with reverse format" do
+      result = Ingreedy.parse "砂糖200g"
+
+      expect(result.amount).to eq(200)
+      expect(result.unit).to eq(:gram)
+      expect(result.ingredient).to eq("砂糖")
+    end
+
+    it "parses correctly with numbers" do
+      result = Ingreedy.parse "卵一個"
+
+      expect(result.amount).to eq(1)
+      expect(result.unit).to eq(:other)
+      expect(result.ingredient).to eq("卵")
+    end
   end
 
-  after(:all) do
-    Ingreedy.locale = nil
-  end
+  context "Taiwanese" do
+    before do
+      Ingreedy.dictionaries[:"zh-TW"] = {
+        units: { gram: ["g"], other: ["个"] },
+        numbers: { "一" => 1 },
+      }
+      Ingreedy.locale = :"zh-TW"
+    end
 
-  it "parses correctly" do
-    result = Ingreedy.parse "200g砂糖"
+    after do
+      Ingreedy.locale = nil
+    end
 
-    expect(result.amount).to eq(200)
-    expect(result.unit).to eq(:gram)
-    expect(result.ingredient).to eq("砂糖")
-  end
+    it "parses correctly" do
+      result = Ingreedy.parse "200g砂糖"
 
-  it "parses correctly with reverse format" do
-    result = Ingreedy.parse "砂糖200g"
+      expect(result.amount).to eq(200)
+      expect(result.unit).to eq(:gram)
+      expect(result.ingredient).to eq("砂糖")
+    end
 
-    expect(result.amount).to eq(200)
-    expect(result.unit).to eq(:gram)
-    expect(result.ingredient).to eq("砂糖")
-  end
+    it "parses correctly with reverse format" do
+      result = Ingreedy.parse "砂糖200g"
 
-  it "parses correctly with numbers" do
-    result = Ingreedy.parse "卵一g"
+      expect(result.amount).to eq(200)
+      expect(result.unit).to eq(:gram)
+      expect(result.ingredient).to eq("砂糖")
+    end
 
-    expect(result.amount).to eq(1)
-    expect(result.ingredient).to eq("卵")
+    it "parses correctly with numbers" do
+      result = Ingreedy.parse "一个鸡蛋"
+
+      expect(result.amount).to eq(1)
+      expect(result.unit).to eq(:other)
+      expect(result.ingredient).to eq("鸡蛋")
+    end
   end
 end
 
