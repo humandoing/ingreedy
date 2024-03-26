@@ -59,26 +59,36 @@
     - "gr."
     - "gram"
     - "grams"
+    - "gramme"
+    - "grammes"
   :kilogram:
     - "kg"
     - "kg."
     - "kilogram"
     - "kilograms"
+    - "kilogramme"
+    - "kilogrammes"
   :liter:
     - "l"
     - "l."
     - "liter"
     - "liters"
+    - "litre"
+    - "litres"
   :milligram:
     - "mg"
     - "mg."
     - "milligram"
     - "milligrams"
+    - "milligramme"
+    - "milligrammes"
   :milliliter:
     - "ml"
     - "ml."
     - "milliliter"
     - "milliliters"
+    - "millilitre"
+    - "millilitres"
   :pinch:
     - "pinch"
     - "pinches"
@@ -132,7 +142,7 @@
   sixty: 60
   seventy: 70
   eighty: 80
-  ninety: 9
+  ninety: 90
 :prepositions:
   - "of"
 :range_separators:
