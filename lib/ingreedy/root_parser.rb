@@ -1,6 +1,7 @@
 module Ingreedy
   class RootParser < Parslet::Parser
     include CaseInsensitiveParser
+    include ContinuousLanguageLocale
 
     rule(:range) do
       AmountParser.new.as(:amount) >>
@@ -19,7 +20,11 @@ module Ingreedy
     end
 
     rule(:whitespace) do
-      match("\s")
+      if use_whitespace?(current_locale)
+        match("\s")
+      else
+        match("\s").maybe
+      end
     end
 
     rule(:container_amount) do
@@ -119,6 +124,10 @@ module Ingreedy
     private
 
     attr_reader :original_query
+  
+    def current_locale
+      Ingreedy.dictionaries.current_locale
+    end
 
     def imprecise_amounts
       Ingreedy.dictionaries.current.imprecise_amounts

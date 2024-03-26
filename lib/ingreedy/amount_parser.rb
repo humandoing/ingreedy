@@ -3,10 +3,16 @@ require "parslet"
 module Ingreedy
   class AmountParser < Parslet::Parser
     include CaseInsensitiveParser
+    include ContinuousLanguageLocale
 
     rule(:whitespace) do
-      match("\s")
+      if use_whitespace?(current_locale)
+        match("\s")
+      else
+        match("\s").maybe
+      end
     end
+
 
     rule(:integer) do
       match("[0-9]").repeat(1)
@@ -57,6 +63,10 @@ module Ingreedy
     root(:amount)
 
     private
+
+    def current_locale
+      Ingreedy.dictionaries.current_locale
+    end
 
     def word_digits
       Ingreedy.dictionaries.current.numbers.keys

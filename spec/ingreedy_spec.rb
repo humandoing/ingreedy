@@ -447,6 +447,43 @@ describe Ingreedy, "ingredient formatting" do
   end
 end
 
+describe Ingreedy, "continuous language" do
+  before(:all) do
+    Ingreedy.dictionaries[:ja] = {
+      units: { gram: ["g"] },
+      numbers: { "一" => 1 },
+    }
+    Ingreedy.locale = :ja
+  end
+
+  after(:all) do
+    Ingreedy.locale = nil
+  end
+
+  it "parses correctly" do
+    result = Ingreedy.parse "200g砂糖"
+
+    expect(result.amount).to eq(200)
+    expect(result.unit).to eq(:gram)
+    expect(result.ingredient).to eq("砂糖")
+  end
+
+  it "parses correctly with reverse format" do
+    result = Ingreedy.parse "砂糖200g"
+
+    expect(result.amount).to eq(200)
+    expect(result.unit).to eq(:gram)
+    expect(result.ingredient).to eq("砂糖")
+  end
+
+  it "parses correctly with numbers" do
+    result = Ingreedy.parse "卵一g"
+
+    expect(result.amount).to eq(1)
+    expect(result.ingredient).to eq("卵")
+  end
+end
+
 describe Ingreedy, "error handling" do
   it "wraps Parslet exceptions in a custom exception" do
     expect do

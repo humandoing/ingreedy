@@ -12,16 +12,24 @@ module Ingreedy
     end
 
     def current
+      fetch_dictionary(current_locale)
+    end
+
+    def current_locale
+      find_locale
+    end
+
+    private
+
+    def find_locale
       candidate_locales.each do |locale|
         if dictionary = fetch_dictionary(locale)
-          return dictionary
+          return locale
         end
       end
 
       raise "No dictionary found for locales: #{candidate_locales}"
     end
-
-    private
 
     def candidate_locales
       Array(Ingreedy.locale || i18n_gem_locales || :en)
