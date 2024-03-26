@@ -92,7 +92,7 @@ module Ingreedy
 
     rule(:reverse_format) do
       # e.g. flour 200g
-      ((whitespace >> quantity).absent? >> any).repeat.as(:ingredient) >>
+      ((whitespace >> quantity >> any.absent?).absent? >> any).repeat.as(:ingredient) >>
         whitespace >>
         quantity
     end
