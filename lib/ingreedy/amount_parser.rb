@@ -13,7 +13,6 @@ module Ingreedy
       end
     end
 
-
     rule(:integer) do
       match("[0-9]").repeat(1)
     end
