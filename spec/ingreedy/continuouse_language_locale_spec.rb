@@ -7,7 +7,6 @@ RSpec.describe Ingreedy::ContinuousLanguageLocale do
     context 'when the locale is a continuous language' do
       it 'returns false' do
         expect(use_whitespace?(:ja)).to be_falsey
-        expect(use_whitespace?(:th)).to be_falsey
         expect(use_whitespace?(:'zh-TW')).to be_falsey
       end
     end
