@@ -28,7 +28,7 @@ module Ingreedy
         hash_entry_as_array = variations_map.detect do |_unit, variations|
           variations.include?(variation.downcase)
         end
-        hash_entry_as_array.first
+        hash_entry_as_array&.first
       end
     end
 
